@@ -1,8 +1,12 @@
 package br.com.JcBank.models;
 
+import br.com.JcBank.API.ApiBrasilApi;
 import br.com.JcBank.Dto.EmpresaDto;
 import com.google.gson.Gson;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -35,29 +39,29 @@ public class Empresa {
         this.descricaoCnae = empresaDto.cnae_fiscal_descricao();
     }
 
-    public Empresa buscarCnae(String cnpj, Endereco endereco) {
+    public Empresa buscarDadosEmpresa(String cnpj, Endereco endereco) {
+
+        ApiBrasilApi apiBrasilApi = new ApiBrasilApi();
+
+        Empresa empresa = apiBrasilApi.conexaoApiBrasilApi(cnpj);
+        empresa.endereco = endereco;
+
+        return empresa;
+    }
+
+    public void comprovanteDeCadastroEmpresa() {
 
         try {
-            var url = "https://brasilapi.com.br/api/cnpj/v1/" + cnpj;
+            File file = new File("C:\\ComprovanteEmpresa.txt");
 
-            HttpClient client = HttpClient.newBuilder().build();
-            HttpRequest request = HttpRequest.newBuilder(URI.create(url)).build();
+            FileWriter fw = new FileWriter(file);
 
-            HttpResponse<String> json = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-            Gson gson = new Gson();
-
-            EmpresaDto empresaDto = gson.fromJson(json.body(), EmpresaDto.class);
-
-            Empresa empresa = new Empresa(empresaDto);
-
-            empresa.endereco = endereco;
-
-            return  empresa;
-
-
-        }catch(Exception e){
-            throw new RuntimeException("Erro ao buscar cnpj " + cnpj, e);
+            fw.write("Comprovante de cadastro ");
+            fw.write(toString());
+            fw.close();
+        }
+        catch (IOException e) {
+            System.out.println("Erro ao criar o comprovante de cadastro da empresa. " + e);
         }
 
     }

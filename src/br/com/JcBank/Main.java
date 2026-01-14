@@ -7,17 +7,15 @@ import br.com.JcBank.models.Pessoa;
 public class Main {
     public static void main(String[] args) {
 
-        Empresa emp = new Empresa();
-
         Endereco endereco = new Endereco();
 
-        Endereco end = endereco.buscarEnderecoPorCep("11050201", "Loja", 21);
-
-        Empresa empresa = emp.buscarCnae("03069071000139", end);
-
-        System.out.println(empresa);
 
 
+        Pessoa p1 = new Pessoa("Jose", "jose.olmedilha@hotmail.com", "34914026",
+                endereco.buscarEnderecoPorCep("11700140","305",524)
+                ,"24//11/2001", "35919307846");
+
+        p1.comprovanteDeCadastroPessoa();
 
     }
 }

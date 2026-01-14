@@ -2,6 +2,9 @@ package br.com.JcBank.models;
 
 import br.com.JcBank.excecao.excecaoPessoa.ExcecaoPessoa;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +23,13 @@ public class Pessoa {
         this.telefone = telefone;
         this.endereco = endereco;
         this.dataNascimento = dataNascimento;
-        this.cpf = cpf;
+        boolean isCpfValido =  validarCpf(cpf);
+
+        if (isCpfValido) {
+            this.cpf = cpf;
+        }
     }
+
 
     public boolean validarCpf(String cpf) {
 
@@ -88,6 +96,24 @@ public class Pessoa {
     }
 
     public Pessoa() {}
+
+
+    public void comprovanteDeCadastroPessoa()  {
+
+        try {
+            File file = new File("C:\\Users\\jose.olmedilha\\Documents\\ComprovantePessoa.txt");
+
+            FileWriter fw = new FileWriter(file);
+
+            fw.write("Comprovante de cadastro");
+            fw.write(toString());
+            fw.close();
+        }
+        catch (IOException e) {
+            System.out.println("Erro ao criar o comprovante de cadastro de pessoas. " + e);
+        }
+
+    }
 
     public String getNome() {
         return nome;

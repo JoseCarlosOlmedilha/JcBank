@@ -1,5 +1,6 @@
 package br.com.JcBank.models;
 
+import br.com.JcBank.API.ApiVIaCep;
 import br.com.JcBank.Dto.EnderecoDto;
 import br.com.JcBank.excecao.excecaoCep.ExcecaoCep;
 import com.google.gson.Gson;
@@ -46,37 +47,14 @@ public class Endereco {
 
     public Endereco buscarEnderecoPorCep(String cep, String complemento, int numero) {
 
-        try {
+        ApiVIaCep  apiVIaCep = new ApiVIaCep();
 
-            if(cep.length() != 8){
-                throw new ExcecaoCep("Verifique o Cep Digitado");
-            }
+        Endereco endereco = apiVIaCep.conexaoApiViaCep(cep);
+        endereco.setComplemento(complemento);
+        endereco.setNumero(numero);
 
-            String url = "https://viacep.com.br/ws/" + cep + "/json/";
+        return endereco;
 
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder(URI.create(url)).build();
-            HttpResponse<String> json = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-            Gson gson = new Gson();
-
-            EnderecoDto enderecoDto = gson.fromJson(json.body(), EnderecoDto.class);
-
-            Endereco endereco = new Endereco(enderecoDto);
-
-            endereco.setComplemento(complemento);
-            endereco.setNumero(numero);
-
-            return endereco;
-
-        } catch (InterruptedException | IOException e) {
-            System.out.println("Erro ao consultar API do cep");
-            System.out.println(e.getMessage());
-            return null;
-        }catch (ExcecaoCep e){
-            System.out.println(e.getMessage());
-            return null;
-        }
 
     }
 
