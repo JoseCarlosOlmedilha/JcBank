@@ -33,9 +33,8 @@ public class Pessoa {
 
     public boolean validarCpf(String cpf) {
 
-        try {
             if (cpf == null || cpf.length() != 11) {
-                throw new ExcecaoPessoa("CPF inválido!");
+                throw new ExcecaoPessoa("CPF Nulo!");
             }
 
             List<Character> caracterCpf = new ArrayList<>();
@@ -65,7 +64,7 @@ public class Pessoa {
             }
 
             if (validarPrimeiroDigito != primeiroDigitoCpf) {
-                throw new ExcecaoPessoa("CPF inválido!");
+                throw new ExcecaoPessoa("Verifique o cpf digitado!");
             }
 
             int somaSegundoDigito = 0;
@@ -87,11 +86,7 @@ public class Pessoa {
                 throw new ExcecaoPessoa("CPF invlido!");
             }
             return true;
-        } catch (ExcecaoPessoa e) {
-            System.out.println(e.getMessage());
-        }
 
-        return false;
 
     }
 

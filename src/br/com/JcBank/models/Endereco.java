@@ -47,13 +47,18 @@ public class Endereco {
 
     public Endereco buscarEnderecoPorCep(String cep, String complemento, int numero) {
 
-        ApiVIaCep  apiVIaCep = new ApiVIaCep();
+            ApiVIaCep apiVIaCep = new ApiVIaCep();
 
-        Endereco endereco = apiVIaCep.conexaoApiViaCep(cep);
-        endereco.setComplemento(complemento);
-        endereco.setNumero(numero);
+            Endereco endereco = apiVIaCep.conexaoApiViaCep(cep);
 
-        return endereco;
+            if (endereco == null) {
+                throw new ExcecaoCep("CEP inválido ou não encontrado.");
+            }
+
+            endereco.setComplemento(complemento);
+            endereco.setNumero(numero);
+
+            return endereco;
 
 
     }
