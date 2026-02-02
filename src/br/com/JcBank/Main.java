@@ -12,6 +12,8 @@ import br.com.JcBank.models.contas.ContaEmpresa;
 import br.com.JcBank.models.contas.Contas;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Main {
@@ -112,6 +114,10 @@ public class Main {
         System.out.println("Digite sua data de nascimento: ");
         String dataNasc = sc.nextLine();
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        LocalDate dataNascimento = LocalDate.parse(dataNasc, formatter);
+
         // ========= CPF =========
         String cpf;
         while (true) {
@@ -156,7 +162,7 @@ public class Main {
         }
 
         // ========= PESSOA =========
-        Pessoa pessoa = new Pessoa(nome, email, telefone, endereco, dataNasc, cpf);
+        Pessoa pessoa = new Pessoa(nome, email, telefone, endereco, dataNascimento, cpf);
 
         // ========= CONTA =========
         System.out.println("Digite o saldo inicial da sua conta: ");

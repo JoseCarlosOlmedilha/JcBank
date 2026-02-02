@@ -92,14 +92,14 @@ public abstract class Contas {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 
-            fw.write("Extrato\n");
-            fw.write("Data: " + data.format(dtf)+ "/n/n");
+            fw.write("Extrato \n");
+            fw.write("Data: " + data.format(dtf)+ "\n\n");
 
             for (Map.Entry<String, Double> entry : this.histoticoMovimento.entrySet()) {
-                fw.write(entry.getKey() + "R$: " + entry.getValue() + "/n/n");
+                fw.write(entry.getKey() + "R$: " + entry.getValue() + "\n");
             }
 
-            fw.write("\nSaldo atual: R$ " + saldo);
+            fw.write("Saldo atual: R$ " + saldo);
 
         } catch (IOException e) {
             throw new RuntimeException("Erro ao gerar extrato", e);

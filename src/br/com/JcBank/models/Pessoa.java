@@ -5,19 +5,20 @@ import br.com.JcBank.excecao.excecaoPessoa.ExcecaoPessoa;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Pessoa {
 
     private String nome;
-    private String dataNascimento;
+    private LocalDate dataNascimento;
     private String cpf;
     private Endereco endereco;
     private String telefone;
     private String email;
 
-    public Pessoa(String nome, String email, String telefone, Endereco endereco, String dataNascimento, String cpf) {
+    public Pessoa(String nome, String email, String telefone, Endereco endereco, LocalDate dataNascimento, String cpf) {
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
@@ -112,14 +113,6 @@ public class Pessoa {
 
     public String getNome() {
         return nome;
-    }
-
-    public String getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(String dataNascimento) {
-        this.dataNascimento = dataNascimento;
     }
 
     public String getCpf() {
