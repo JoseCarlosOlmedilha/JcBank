@@ -19,7 +19,7 @@ import java.util.*;
 public class Main {
 
     public static void menu(){
-        System.out.println("========Menu========");
+        System.out.println("\n========Menu========");
         System.out.println("1 - Cadastro de Contas");
         System.out.println("2 - Realizaar Operação");
         System.out.println("3 - Sair");
@@ -27,15 +27,16 @@ public class Main {
     }
 
     public static void menuCadastroConta(){
-        System.out.println("========Cadastro de Contas========");
+        System.out.println("\n========Cadastro de Contas========");
         System.out.println("1 - Cadastro de Conta para pessoa Fisica");
         System.out.println("2 - Cadastro de Conta para Empresa");
+        System.out.println("0 - Digite para sair");
         System.out.print("Digite a opção desejada: ");
 
     }
 
     public static void menuRealizarOperacao( ){
-        System.out.println("========Realizar Operação========");
+        System.out.println("\n========Realizar Operação========");
         System.out.println("1 - Realizar Saque");
         System.out.println("2 - Realizar Deposito");
         System.out.println("3 - Depositar Cheque");
@@ -107,7 +108,7 @@ public class Main {
         return c1;
     }*/
     public static ContaCorrente cadastrarPessoaFisica(Scanner sc) {
-
+        System.out.println("\n========Cadastro de Pessoa Fisica========");
         System.out.println("Digite seu nome: ");
         String nome = sc.nextLine();
 
@@ -217,7 +218,7 @@ public class Main {
 */
 
     public static ContaEmpresa cadastrarContaEmpresa(Scanner sc) {
-
+        System.out.println("\n========Cadastro de Conta Empressarial========");
         System.out.print("Digite o CNPJ: ");
         String cnpj = sc.nextLine();
 
@@ -242,7 +243,7 @@ public class Main {
 
                 break; // só sai se o CEP for válido
             } catch (ExcecaoCep e) {
-                System.out.println(e.getMessage());
+                System.out.print( e.getMessage());
             }
         }
 
@@ -290,32 +291,34 @@ public class Main {
         while(true){
 
             menu();
-            int opcaoManu = sc.nextInt();
+            int opcaoMenu = sc.nextInt();
 
 
-            switch (opcaoManu){
+            switch (opcaoMenu){
                 case 1:
-                    menuCadastroConta();
-                    int opcaoCadastro = sc.nextInt();
-                    sc.nextLine();
+                    int opcaoCadastro;
+                    do {
+                        menuCadastroConta();
+                        opcaoCadastro = sc.nextInt();
+                        sc.nextLine();
 
-                    switch (opcaoCadastro){
-                        case 1:
-                            try {
-                                ContaCorrente conta = cadastrarPessoaFisica(sc);
-                                contas.add(conta);
-                            }catch (ExcecaoPessoa e){
-                                System.out.println("Houve um erro no cadastro, verifique. " + e.getMessage());
+                            switch (opcaoCadastro) {
+                                case 1:
+                                    try {
+                                        ContaCorrente conta = cadastrarPessoaFisica(sc);
+                                        contas.add(conta);
+                                    } catch (ExcecaoPessoa e) {
+                                        System.out.println("Houve um erro no cadastro, verifique. " + e.getMessage());
+                                    }
+
+                                    break;
+                                case 2:
+                                    ContaEmpresa contaEmpresa = cadastrarContaEmpresa(sc);
+                                    contas.add(contaEmpresa);
+
+                                    break;
                             }
-
-                            break;
-                        case 2:
-                            ContaEmpresa contaEmpresa = cadastrarContaEmpresa(sc);
-                            contas.add(contaEmpresa);
-
-                            break;
-                    }
-
+                        }while(opcaoCadastro != 0 );
                     break;
 
                 case 2:

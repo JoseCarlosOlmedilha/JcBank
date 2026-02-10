@@ -19,9 +19,11 @@ public class ApiVIaCep {
 
         try {
 
+
             if(cep.length() != 8){
-                throw new ExcecaoCep("Verifique o Cep Digitado");
+                throw new ExcecaoCep("\n Verifique o Cep Digitado");
             }
+
 
             String url = "https://viacep.com.br/ws/" + cep + "/json/";
 
