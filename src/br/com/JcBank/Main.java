@@ -2,6 +2,7 @@ package br.com.JcBank;
 
 import br.com.JcBank.API.ApiVIaCep;
 import br.com.JcBank.excecao.excecaoCep.ExcecaoCep;
+import br.com.JcBank.excecao.excecaoCnpj.ExcecaoCnpj;
 import br.com.JcBank.excecao.excecaoConta.ContaException;
 import br.com.JcBank.excecao.excecaoPessoa.ExcecaoPessoa;
 import br.com.JcBank.models.Empresa;
@@ -218,9 +219,8 @@ public class Main {
 */
 
     public static ContaEmpresa cadastrarContaEmpresa(Scanner sc) {
+
         System.out.println("\n========Cadastro de Conta Empressarial========");
-        System.out.print("Digite o CNPJ: ");
-        String cnpj = sc.nextLine();
 
         Endereco endereco = null;
         Random random = new Random();
@@ -247,9 +247,23 @@ public class Main {
             }
         }
 
-        // ===== BUSCA DADOS DA EMPRESA =====
-        Empresa empresa = new Empresa()
-                .buscarDadosEmpresa(cnpj, endereco);
+        Empresa empresa = new Empresa();
+
+        while (true) {
+            try {
+                System.out.print("Digite o CNPJ: ");
+                String cnpj = sc.nextLine();
+
+                if (cnpj.isEmpty()) {
+                    throw new ExcecaoCnpj("CNPJ não pode ser vazio.");
+                }
+
+                empresa.buscarDadosEmpresa(cnpj, endereco);
+                break;
+            } catch (ExcecaoCnpj e) {
+                System.out.println(e.getMessage());
+            }
+        }
 
         // ===== DADOS DA CONTA =====
         System.out.print("Digite o saldo inicial da sua conta: ");

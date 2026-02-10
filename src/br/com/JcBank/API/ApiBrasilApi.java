@@ -1,6 +1,7 @@
 package br.com.JcBank.API;
 
 import br.com.JcBank.Dto.EmpresaDto;
+import br.com.JcBank.excecao.excecaoCnpj.ExcecaoCnpj;
 import br.com.JcBank.models.Empresa;
 import com.google.gson.Gson;
 
@@ -21,14 +22,20 @@ public class ApiBrasilApi {
 
             HttpResponse<String> json = client.send(request, HttpResponse.BodyHandlers.ofString());
 
+            if (json.statusCode() != 200) {
+                throw new ExcecaoCnpj("Erro ao buscar empresa");
+            }
+
             Gson gson = new Gson();
 
             EmpresaDto empresaDto = gson.fromJson(json.body(), EmpresaDto.class);
 
             Empresa empresa = new Empresa(empresaDto);
 
-            return  empresa;
+            return empresa;
 
+        }catch (ExcecaoCnpj e) {
+            throw e;
 
         }catch(Exception e){
             throw new RuntimeException("Erro ao buscar cnpj " + cnpj, e);

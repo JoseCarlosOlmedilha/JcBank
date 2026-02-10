@@ -2,6 +2,7 @@ package br.com.JcBank.models;
 
 import br.com.JcBank.API.ApiBrasilApi;
 import br.com.JcBank.Dto.EmpresaDto;
+import br.com.JcBank.excecao.excecaoCnpj.ExcecaoCnpj;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -44,6 +45,10 @@ public class Empresa {
         ApiBrasilApi apiBrasilApi = new ApiBrasilApi();
 
         Empresa empresa = apiBrasilApi.conexaoApiBrasilApi(cnpj);
+        if (empresa == null) {
+            throw new ExcecaoCnpj("Cnpj invalido, favor verificar");
+        }
+
         empresa.endereco = endereco;
 
         return empresa;
