@@ -163,10 +163,9 @@ public class Main {
             }
         }
 
-        // ========= PESSOA =========
+
         Pessoa pessoa = new Pessoa(nome, email, telefone, endereco, dataNascimento, cpf);
 
-        // ========= CONTA =========
         System.out.println("Digite o saldo inicial da sua conta: ");
         int saldo = sc.nextInt();
         sc.nextLine();
@@ -178,7 +177,10 @@ public class Main {
         Random random = new Random();
         int numeroConta = random.nextInt(900000) + 100000;
 
+        pessoa.comprovanteDeCadastroPessoa();
+
         System.out.println("Número da conta: " + numeroConta);
+
 
         return new ContaCorrente(numeroConta, saldo, limite, pessoa);
     }
@@ -276,6 +278,8 @@ public class Main {
                 empresa,
                 30000.00
         );
+
+        empresa.comprovanteDeCadastroEmpresa();
 
         System.out.println("Número da conta: " + contaEmpresa.getNumero());
 

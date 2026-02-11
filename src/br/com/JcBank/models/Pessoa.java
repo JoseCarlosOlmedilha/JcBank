@@ -31,7 +31,6 @@ public class Pessoa {
         }
     }
 
-
     public boolean validarCpf(String cpf) {
 
             if (cpf == null || cpf.length() != 11) {
@@ -87,17 +86,14 @@ public class Pessoa {
                 throw new ExcecaoPessoa("CPF invlido!");
             }
             return true;
-
-
     }
 
     public Pessoa() {}
 
-
     public void comprovanteDeCadastroPessoa()  {
 
         try {
-            File file = new File("C:\\Users\\jose.olmedilha\\Documents\\ComprovantePessoa.txt");
+            File file = new File("C:\\ComprovantePessoa.txt");
 
             FileWriter fw = new FileWriter(file);
 
